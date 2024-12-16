@@ -7,6 +7,7 @@ Rendimiento: Se debe optimizar el tiempo de respuesta de las consultas, especial
 Disponibilidad: El sistema debe estar disponible y funcionando sin caídas, incluso cuando se incrementa el volumen de datos.
 Integridad de los datos: Debe garantizarse que los datos estén correctos y sin duplicados, incluso después de particionar la base de datos.
 Particionamiento necesario: El particionamiento horizontal (sharding) es necesario para distribuir los datos a través de varios servidores, permitiendo que el sistema escale horizontalmente.
+
 2. Definir la estrategia de particionamiento:
 En MongoDB, puedes particionar la base de datos utilizando un campo de shard key. Esto puede ser un campo que distribuye bien los datos y las consultas entre los fragmentos.
 Ejemplo de shard key: Si estamos manejando un evento deportivo, una buena opción podría ser evento_id, ya que los datos de diferentes eventos no se solapan y permiten distribuir los datos eficientemente.
