@@ -1,0 +1,31 @@
+# Iniciar servidor de configuración
+mongod --configsvr --dbpath /data/configdb --port 27019
+
+# Iniciar servidor de shard
+mongod --shardsvr --dbpath /data/shard1 --port 27018
+
+# Iniciar enrutador de consultas
+mongos --configdb localhost:27019
+
+# Conectar al enrutador de consultas
+mongo --port 27017
+
+# Crear base de datos y habilitar sharding
+use eventDB
+sh.enableSharding("eventDB")
+
+# Crear la colección
+db.createCollection("events")
+
+# Habilitar el sharding en la colección 'events' utilizando 'event_id' como clave de shard
+sh.shardCollection("eventDB.events", { "event_id": 1 })
+
+# Verificar el estado del sharding
+sh.status()
+
+# Insertar datos
+db.events.insertMany([
+  { "event_id": 1, "name": "Event A", "location": "Location A", "date": "2024-01-01" },
+  { "event_id": 2, "name": "Event B", "location": "Location B", "date": "2024-02-01" },
+  { "event_id": 3, "name": "Event C", "location": "Location C", "date": "2024-03-01" }
+])
